@@ -4,8 +4,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Progress</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      color: rosybrown;
+      height: 100%;
+    }
+    .page-container {
+      height: calc(100vh);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('./Chihiro.jpg');
+      background-repeat: repeat;
+      background-size: contain;
+      background-position: center;
+      flex-direction: column;
+    }
+    .page-container .refresh-btn {
+      height: 50px;
+      line-height: 50px;
+      padding: 0 20px;
+      color: #333;
+      font-size: 20px;
+      font-weight: 900;
+      background-color: greenyellow;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      box-shadow: lightblue 2px 4px 10px;
+    }
+    .refresh-btn:hover {
+      cursor: pointer;
+      background-color: rgb(91, 201, 238);
+      color: white;
+    }
+    .message-wraper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background-color: rgba(0, 0, 0, .5);
+      width: 80%;
+      margin: 0 30px;
+      padding: 20px;
+    }
+    .message-wraper .title {
+      text-align: center;
+      font-size: 6vw;
+      padding: 10px;
+      margin-bottom: 30px;
+      font-weight: bolder;
+      color: whitesmoke;
+    }
+    .message-wraper .message {
+      margin-bottom: 20px;
+    }
+    .message .year {
+      font-weight: bold;
+    }
+    .message .days-has-past, .message .percent {
+      font-weight: bold;
+      color: greenyellow;
+    }
+    .message .days-has-past {
+      opacity: 1;
+      font-size: 80px;
+    }
+    .message .percent {
+      opacity: 1;
+      font-size: 21px;
+    }
+    .message-wraper .progress-container {
+      border-radius: 15px;
+      width: 60%;
+      height: 27px;
+      background-color: pink;
+      display: flex;
+      justify-content: stretch;
+      overflow-x: hidden;
+    }
+  </style>
 </head>
 <body>
+
+  <div class="page-container">
+
+    <div class="refresh-btn">刷新一下</div>
+
+    <div class="message-wraper">
+
+        <div class="title">Your <span class="year">2099</span> Progress</div>
+
+        <div  class="message">
+            <span class="year">2099</span>已经溜走<span class="days-has-past">1</span>天了, 过了
+            <span class="percent"></span>%
+        </div>
+
+        <div class="progress-container"></div>
+    </div>
+
+  </div>
 
 </body>
 </html>
