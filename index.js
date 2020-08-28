@@ -1,96 +1,105 @@
-var percentTimer;
-var progressBarTimer;
-var yearEle = document.querySelectorAll('.year');
-var pastEle = document.querySelector('.days-has-past');
-var percentEle = document.querySelector('.percent');
-var refreshBtn = document.querySelector('.refresh-btn');
-var progressContainer = document.querySelector('.progress-container');
-var daysOfCurrentYear;
-var daysHavePast;
-var percent;
+class progress {
+  percentTimer;
+  progressBarTimer;
+  daysOfCurrentYear;
+  daysHavePast;
+  percent;
 
-function setCurrentYearToPage(year) {
-  yearEle.forEach(item => item.innerHTML = year);
-}
-
-function getDaysOfYear(year) {
-  const isLeapYear = year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0);
-  return isLeapYear ? 366 : 365;
-}
-
-function debounce() {
-  if (percentTimer) {
-    clearTimeout(percentTimer)
+  constructor() {
+    this.yearEle = document.querySelectorAll('.year');
+    this.pastEle = document.querySelector('.days-has-past');
+    this.percentEle = document.querySelector('.percent');
+    this.refreshBtn = document.querySelector('.refresh-btn');
+    this.progressContainer = document.querySelector('.progress-container');
+    this.initPage()
   }
-  if (progressBarTimer) {
-    clearTimeout(progressBarTimer)
-    const completeEle = document.querySelector('.finish');
-    progressContainer.removeChild(completeEle);
+
+  setCurrentYearToPage(year) {
+    this.yearEle.forEach(item => item.innerHTML = year);
   }
-}
 
-function getProgress() {
-  //TODO:get the full year's day amount
-  const time = new Date();
-  const year = time.getFullYear();
-  const month = time.getMonth();
-  const day = time.getDate();
+  getDaysOfYear(year) {
+    const isLeapYear = year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0);
+    return isLeapYear ? 366 : 365;
+  }
 
-  setCurrentYearToPage(year)
-  daysOfCurrentYear = getDaysOfYear(year);
+  debounce() {
+    if (this.percentTimer) {
+      clearTimeout(this.percentTimer)
+    }
+    if (this.progressBarTimer) {
+      clearTimeout(this.progressBarTimer)
+      const completeEle = document.querySelector('.finish');
+      this.progressContainer.removeChild(completeEle);
+    }
+  }
 
-  //TODO:figure out how many day has passed from new year
-  const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-  const startDate = new Date(year, 1, 1);
-  const today = new Date(year, month + 1, day);
+  getProgress() {
+    //TODO:get the full year's day amount
+    const time = new Date();
+    const year = time.getFullYear();
+    const month = time.getMonth();
+    const day = time.getDate();
 
-  const diffDays = Math.round(Math.abs((startDate - today) / oneDay));
-  daysHavePast = diffDays;
+    this.setCurrentYearToPage(year)
+    this.daysOfCurrentYear = this.getDaysOfYear(year);
 
-  //TODO:figure out the progress
-  return (diffDays / daysOfCurrentYear).toFixed(4) ;
-}
+    //TODO:figure out how many day has passed from new year
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const startDate = new Date(year, 1, 1);
+    const today = new Date(year, month + 1, day);
 
-function setProgressBar() {
-  const completeEle = document.createElement('div');
-  completeEle.className = 'finish';
-  progressContainer.appendChild(completeEle);
-  progressBarTimer = setTimeout(() => {
-      completeEle.style.width = percent * 100 + '%';
-      clearTimeout(progressBarTimer);
-  })
-}
+    const diffDays = Math.round(Math.abs((startDate - today) / oneDay));
+    this.daysHavePast = diffDays;
 
-function setPercentAnimation() {
-  const unitPercent = parseFloat((percent / 180).toFixed(4));
-  const timeGap = 3000 / 180;
-  let dynamicPercent = 0;
-  percentTimer = setTimeout(function increateByPercent() {
+    //TODO:figure out the progress
+    return (diffDays / this.daysOfCurrentYear).toFixed(4) ;
+  }
+
+  setProgressBar() {
+    const completeEle = document.createElement('div');
+    completeEle.className = 'finish';
+    this.progressContainer.appendChild(completeEle);
+    this.progressBarTimer = setTimeout(() => {
+        completeEle.style.width = this.percent * 100 + '%';
+        clearTimeout(this.progressBarTimer);
+    })
+  }
+
+  setPercentAnimation() {
+    const unitPercent = parseFloat((this.percent / 180).toFixed(4));
+    const timeGap = 3000 / 180;
+    let dynamicPercent = 0;
+    const increateByPercent = () => {
       dynamicPercent += unitPercent;
-      if (dynamicPercent < percent) {
-          percentEle.innerHTML = (dynamicPercent * 100).toFixed(2);
-          pastEle.innerHTML = Math.round(daysOfCurrentYear * dynamicPercent);
-          percentTimer = setTimeout(increateByPercent, timeGap);
+      if (dynamicPercent < this.percent) {
+          this.percentEle.innerHTML = (dynamicPercent * 100).toFixed(2);
+          this.pastEle.innerHTML = Math.round(this.daysOfCurrentYear * dynamicPercent);
+          this.percentTimer = setTimeout(increateByPercent, timeGap);
       } else {
-          percentEle.innerHTML = (percent * 100).toFixed(2);
-          pastEle.innerHTML = daysHavePast;
-          clearTimeout(percentTimer)
+          this.percentEle.innerHTML = (this.percent * 100).toFixed(2);
+          this.pastEle.innerHTML = this.daysHavePast;
+          clearTimeout(this.percentTimer)
       }
-  }, timeGap);
-}
+    }
+    this.percentTimer = setTimeout(increateByPercent, timeGap);
+  }
 
-function setProgressToPage() {
-  debounce()
-  setProgressBar()
-  setPercentAnimation()
-}
+  setProgressToPage() {
+    this.debounce()
+    this.setProgressBar()
+    this.setPercentAnimation()
+  }
 
-function initPage() {
-  percent = getProgress()
-  setProgressToPage();
+  initPage() {
+    this.percent = this.getProgress()
+    this.setProgressToPage();
+  }
 }
 
 window.onload = function () {
-  initPage()
-  refreshBtn.addEventListener('click', initPage);
+  const progressInstance = new progress()
+  progressInstance.refreshBtn.addEventListener('click', () => {
+    progressInstance.initPage()
+  });
 }
