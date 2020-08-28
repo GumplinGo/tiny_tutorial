@@ -1,0 +1,91 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  color: rosybrown;
+  height: 100%;
+}
+.page-container {
+  height: calc(100vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('./Chihiro.jpg');
+  background-repeat: repeat;
+  background-size: contain;
+  background-position: center;
+  flex-direction: column;
+}
+.page-container .refresh-btn {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 20px;
+  color: #333;
+  font-size: 20px;
+  font-weight: 900;
+  background-color: greenyellow;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-shadow: lightblue 2px 4px 10px;
+}
+.refresh-btn:hover {
+  cursor: pointer;
+  background-color: rgb(91, 201, 238);
+  color: white;
+}
+.message-wraper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, .5);
+  width: 80%;
+  margin: 0 30px;
+  padding: 20px;
+}
+.message-wraper .title {
+  text-align: center;
+  font-size: 6vw;
+  padding: 10px;
+  margin-bottom: 30px;
+  font-weight: bolder;
+  color: whitesmoke;
+}
+.message-wraper .message {
+  margin-bottom: 20px;
+}
+.message .year {
+  font-weight: bold;
+}
+.message .days-has-past, .message .percent {
+  font-weight: bold;
+  color: greenyellow;
+}
+.message .days-has-past {
+  opacity: 1;
+  font-size: 80px;
+}
+.message .percent {
+  opacity: 1;
+  font-size: 21px;
+}
+.message-wraper .progress-container {
+  border-radius: 15px;
+  width: 60%;
+  height: 27px;
+  background-color: pink;
+  display: flex;
+  justify-content: stretch;
+  overflow-x: hidden;
+}
+.progress-container .finish {
+  background-image: linear-gradient(45deg,
+  #f3f730 25%,
+  #000000 0,
+  #000000 50%,
+  #f3f730 0,
+  #f3f730 75%,
+  #000000 0);
+  background-size:15px 15px;
+  width: 0%;
+  transition: all 3s ease-in;
+}
