@@ -9,7 +9,7 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('./Chihiro.jpg');
+  background-image: url('../assets/img/Chihiro.jpg');
   background-repeat: repeat;
   background-size: contain;
   background-position: center;

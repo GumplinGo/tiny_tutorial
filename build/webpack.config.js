@@ -5,21 +5,14 @@ const webpack = require('webpack')
 
 module.exports = {
   mode: 'none',
-  entry: './index.js',
+  entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-  devServer: {
-    port: 3000,
-    contentBase: './dist',  // 起服务的地址(即定位到我们的输出文件地址)
-    open: true,              // 自动打开浏览器
-    compress: true,         // gzip压缩
-    hot: true,   // 开启热更新
+    path: path.resolve(__dirname, '../dist'),
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',//模板文件地址
+      template: './src/index.html',//模板文件地址
       filename: 'index.html',//指定打包后的文件名字
     }),
     new MinniCssExtractPlugin({
