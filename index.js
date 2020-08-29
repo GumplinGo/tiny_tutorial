@@ -1,9 +1,9 @@
 class progress {
-  percentTimer;
-  progressBarTimer;
-  daysOfCurrentYear;
-  daysHavePast;
-  percent;
+  // percentTimer;
+  // progressBarTimer;
+  // daysOfCurrentYear;
+  // daysHavePast;
+  // percent;
 
   constructor() {
     this.yearEle = document.querySelectorAll('.year');
